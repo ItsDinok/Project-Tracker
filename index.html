@@ -1,0 +1,84 @@
+<!-- index.html -->
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Project Tracker</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<h1>My Projects</h1>
+	<input id="title" placeholder="Title" />
+	<textarea id="desc" placeholder="Description"></textarea>
+	<input id="lang" placeholder="Language" />
+	<input id="next" placeholder="Next task" />
+
+	<select id="category">
+		<option value="">Uncategorised</option>
+		<option value="Game">Game</option>
+		<option value="Application">Application</option>
+		<option value="Tool">Tool</option>
+		<option value="Academia">Academia</option>
+	</select>
+
+	<br><br>
+	
+	<div class="progressWrapper">
+		<label id="progressLabel" for="progress">Progress</label>
+		<input type="range" id="progress" min="0" max="100" value="0"
+			oninput="updateProgressLabel(this.value)" />
+	</div>
+
+	<br><br>
+	<button onclick="addProject()">Add Project</button>
+	
+	<textarea id="updateNote" placeholder="Write an update..." style="display: none;"></textarea>
+	<button id="updateButton" onclick="addUpdate()" style="display: none">Add Update</button>
+
+	<ul id="projectList"></ul>
+
+	<div id="editModal" style="display: none;" class="modal-backdrop">
+		<div class="modal">
+			<h2>Edit Project</h2>
+			<input id="editTitle" placeholder="Title" />
+			<textarea id="editDesc" placeholder="Description"></textarea>
+			<input id="editLang" placeholder="Language"/>
+			<input id="editNext" placeholder="Next Task:"/>
+			<label for="editProgress">Progress</label>
+			<input type="range" id="editProgress" min="0" max="100" />
+			<label for="editCategory">Category</label>
+			<select id="editCategory">
+				<option value="">Uncategorised</option>
+				<option value="Game">Game</option>
+				<option value="Application">Application</option>
+				<option value="Tool">Tool</option>
+				<option value="Academia">Academia</option>
+			</select>
+		
+			<br>
+			<span id="editProgressLabel">0%</span>
+			<div style="margin-top: 15px;">
+				<button onclick="saveEdit()">Save</button>
+				<button onclick="closeEdit()">Cancel</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="updateModal" class="modal-backdrop" style="display:none">
+		<div class="modal-content">
+			<span class="close" onclick="closeUpdateModal()">&times;</span>
+			<h2>Add Update</h2>
+			<textarea id="updateNote" placeholder="Write an update..."></textarea>
+			<button onclick="addUpdate()">Submit</button>
+		</div>
+	</div>
+
+	<label class="theme-switch">
+		<input type="checkbox" id="darkModeToggle" />
+		<span class="slider"></span>
+	</label>
+	<script src="script.js"></script>
+</body>
+
+</html>
