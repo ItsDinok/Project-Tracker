@@ -8,10 +8,6 @@ function loadProjects() {
 	const projects = JSON.parse(localStorage.getItem('projects') || '[]');
 
 	projects.forEach((proj, index) => {
-		
-	});
-
-	projects.forEach((proj, index) => {
 		const li = document.createElement('li');
 		li.innerHTML = `
 			<strong>${proj.title}</strong>
@@ -148,7 +144,7 @@ toggle.addEventListener('change', () => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-	const darkMode = localStorage.getItem('darkMode') === true;
+	const darkMode = localStorage.getItem('darkMode') === 'true';
 	document.body.classList.toggle('dark', darkMode);
 	toggle.checked = darkMode;
 });
@@ -157,3 +153,28 @@ document.getElementById('editProgress').oninput = function() {
 	document.getElementById('editProgressLabel').innerText = this.value + "%";
 }
 window.onload = loadProjects;
+
+window.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('projectList');
+
+  container.addEventListener('mouseenter', (event) => {
+    const card = event.target.closest('li');
+    if (!card || !container.contains(card)) return;
+
+    console.log('Hovering card:', card);
+
+    const cardRect = card.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const currentScroll = container.scrollLeft;
+
+    const cardCentre = cardRect.left + cardRect.width / 2;
+    const containerCentre = containerRect.left + containerRect.width / 2;
+
+    const scrollTo = currentScroll + (cardCentre - containerCentre);
+
+    container.scrollTo({
+      left: scrollTo,
+      behavior: 'smooth',  // correct spelling
+    });
+  }, true); // use capture to ensure mouseenter is detected on children
+});
